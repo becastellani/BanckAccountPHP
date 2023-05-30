@@ -1,10 +1,10 @@
 <?php
 
-class ContaCorrente
+class Conta
 {
     private $tipoCorrente = 1;
     private $titular;
-    private $saldoCorrente;
+    private $saldo;
     private static $numeroDeContas = 0;
 
 
@@ -24,7 +24,7 @@ class ContaCorrente
     public function __construct(Titular $titular)
     {
         $this->titular  = $titular;
-        $this->saldoCorrente = 0;
+        $this->saldo = 0;
 
 
         self::$numeroDeContas++;
@@ -42,11 +42,11 @@ class ContaCorrente
 
     public function saca(float $valorASacar)
     {
-        if ($valorASacar > $this->saldoCorrente){
+        if ($valorASacar > $this->saldo){
             echo 'Saldo indisponivel';
 
         }
-        $this->saldoCorrente -=$valorASacar;
+        $this->saldo -=$valorASacar;
     }
     public function deposita(float $valorADepositar): void
     {
@@ -54,21 +54,21 @@ class ContaCorrente
             echo "Valor precisa ser positivo";
             return;
         }
-        $this->saldoCorrente += $valorADepositar;
+        $this->saldo += $valorADepositar;
     }
-    public function transferir(float $valorATransferir, ContaCorrente $contaCorrenteDestino): void
+    public function transferir(float $valorATransferir, Conta $contaDestino): void
     {
-        if ($valorATransferir > $this->saldoCorrente){
+        if ($valorATransferir > $this->saldo){
             echo 'Saldo Indisponivel';
             return;
         }
         $this->sacar($valorATransferir);
-        $contaCorrenteDestino->depositar($valorATransferir);
+        $contaDestino->depositar($valorATransferir);
     }
 
     public function recuperaSaldo(): float
     {
-        return $this->saldoCorrente;
+        return $this->saldo;
     }
     public function recuperaNomeTitular() : string
     {
