@@ -1,5 +1,11 @@
 <?php
 
+namespace Alura\Banco\Modelo\Conta;
+
+use Alura\Banco\Modelo\Pessoa;
+use Alura\Banco\Modelo\CPF;
+use Alura\Banco\Modelo\Endereco;
+
 class Titular extends Pessoa
 {
     private Endereco $endereco;
@@ -7,19 +13,10 @@ class Titular extends Pessoa
 
     public function __construct(CPF $cpf, string $nome, Endereco $endereco)
     {
-        $this->cpf = $cpf;
-        $this->validaNome($nome);
-        $this->nome = $nome;
+        parent::__construct($nome, $cpf);
         $this->endereco = $endereco;
     }
 
-    private function validaNome(string $nome)
-    {
-        if(strlen ($nome) < 4 ){
-            echo 'O Nome precisa de no minimo 5 caracteres';
-            exit();
-        }
-    }
 
     public function getEndereco() : Endereco
     {
